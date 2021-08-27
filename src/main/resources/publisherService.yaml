@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Producer Service API
+  description: Spring boot REST api assingment.
+  version: 0.1.9
+servers:
+  - url: http://localhost/v1
+    description: Server on local machine.
+
+paths:
+  /customer:
+    post:
+      summary: "Add a new customer"
+      parameters:
+        - in: header
+          name: Transaction-Id
+          schema:
+            type: string
+            format: uuid
+          required: true 
+        - in: header
+          name: Activity-Id
+          schema:
+            type: string
+            format: uuid
+          required: true           
+      description: ""
+      operationId: "addCustomer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        default:
+          description: "Customer response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+      security:
+        - bearerAuth: []
+                
+
+        
+components:
+  schemas:
+    Request:
+      type: object
+      properties:
+        customerNumber:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: '^C[0-9]+$'
+        fistName:
+          type: string
+          minLength: 10
+          maxLength: 50
+        lastName:
+          type: string
+          minLength: 10
+          maxLength: 50
+        birthDate:
+          type: string
+          format: date
+        country:
+          type: string 
+        countryCode:
+          type: integer
+          format: int32
+          maxLength: 2
+        mobileNumber:
+          type: integer
+          format: int64
+          maxLength: 10
+        email:
+          type: string
+          format: email
+        customerStatus:
+          type: string
+          enum: [Open, Close, Suspended, Restored]
+        address:
+          $ref: '#/components/schemas/CustomerAddress'          
+      required:
+      - customerNumber
+      - firstName      
+      - lastName
+      - birthDate
+      - country
+      - countryCode
+      - mobileNumber
+      - email
+      - customerStatus
+    
+    CustomerAddress:
+      type: object
+      properties:
+        addressLine1: 
+          type: string
+          maxLength: 50
+        addressLine2:
+          type: string
+        street:
+          type: string
+        postalCode:
+          type: string
+          maxLength: 5
+      required:
+      - addressLine1
+      - postalCode
+              
+    Response:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        errorType:
+          type: string
+          
+      required:
+      - status
+      - message          
+          
+  securitySchemes:
+    bearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT   
