@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * Request
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-08-27T10:24:17.002Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-08-30T16:48:56.008Z[GMT]")
 
 
 public class Request   {

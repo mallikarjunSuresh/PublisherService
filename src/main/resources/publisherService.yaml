@@ -33,12 +33,42 @@ paths:
             schema:
               $ref: '#/components/schemas/Request'
       responses:
-        default:
+        '200':
           description: "Customer response"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Response'
+                $ref: '#/components/schemas/SuccessResponse' 
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+        '401':
+          description: "Authorization error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+        '404':
+          description: "No handler error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+        '500':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+        '503':
+          description: "Service unavailable error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'     
       security:
         - bearerAuth: []
                 
@@ -110,8 +140,20 @@ components:
       required:
       - addressLine1
       - postalCode
+      
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      required:
+      - status
+      - message 
+      
               
-    Response:
+    FailureResponse:
       type: object
       properties:
         status:
@@ -120,7 +162,6 @@ components:
           type: string
         errorType:
           type: string
-          
       required:
       - status
       - message          
