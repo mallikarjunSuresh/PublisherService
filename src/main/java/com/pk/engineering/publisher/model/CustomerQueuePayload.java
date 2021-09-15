@@ -1,49 +1,56 @@
-package com.pk.engineering.Publisher.model;
+package com.pk.engineering.publisher.model;
 
 import java.util.Objects;
 import java.util.UUID;
 
 public class CustomerQueuePayload {
 
-    private UUID ActivityId;
+    private UUID activityId;
     
-    private UUID TransactionId;
+    private UUID transactionId;
 
     private Request customerRequest;
 
 	public CustomerQueuePayload(UUID activityId, UUID transactionId, Request customerRequest) {
-		this.ActivityId = activityId;
-		this.TransactionId = transactionId;
+		this.activityId = activityId;
+		this.transactionId = transactionId;
 		this.customerRequest = customerRequest;
 	}
 
+
 	public UUID getActivityId() {
-		return ActivityId;
+		return activityId;
 	}
+
 
 	public void setActivityId(UUID activityId) {
-		ActivityId = activityId;
+		this.activityId = activityId;
 	}
+
 
 	public UUID getTransactionId() {
-		return TransactionId;
+		return transactionId;
 	}
 
+
 	public void setTransactionId(UUID transactionId) {
-		TransactionId = transactionId;
+		this.transactionId = transactionId;
 	}
+
 
 	public Request getCustomerRequest() {
 		return customerRequest;
 	}
 
+
 	public void setCustomerRequest(Request customerRequest) {
 		this.customerRequest = customerRequest;
 	}
 
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(ActivityId, TransactionId, customerRequest);
+		return Objects.hash(activityId, transactionId, customerRequest);
 	}
 
 	@Override
@@ -55,15 +62,17 @@ public class CustomerQueuePayload {
 		if (getClass() != obj.getClass())
 			return false;
 		CustomerQueuePayload other = (CustomerQueuePayload) obj;
-		return Objects.equals(ActivityId, other.ActivityId) && Objects.equals(TransactionId, other.TransactionId)
+		return Objects.equals(activityId, other.activityId) && Objects.equals(transactionId, other.transactionId)
 				&& Objects.equals(customerRequest, other.customerRequest);
 	}
 
 	@Override
 	public String toString() {
-		return "CustomerQueuePayload [ActivityId=" + ActivityId + ", TransactionId=" + TransactionId
+		return "CustomerQueuePayload [activityId=" + activityId + ", transactionId=" + transactionId
 				+ ", customerRequest=" + customerRequest + "]";
 	}
+
+
 
     
     

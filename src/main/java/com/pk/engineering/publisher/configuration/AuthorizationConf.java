@@ -1,6 +1,7 @@
-package com.pk.engineering.Publisher.configuration;
+package com.pk.engineering.publisher.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,29 +14,32 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationConf extends AuthorizationServerConfigurerAdapter {
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-  @Autowired private BCryptPasswordEncoder passwordEncoder;
-  @Autowired private AuthenticationManager authenticationManager;
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		clients.inMemory().withClient("clientId").secret(encoder().encode("123456"))
+				.authorizedGrantTypes("client_credentials").scopes("read", "write").autoApprove(true)
+				.accessTokenValiditySeconds(900);
+	}
 
-  @Override
-  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    clients
-        .inMemory()
-        .withClient("clientId")
-        .secret(passwordEncoder.encode("123456"))
-        .authorizedGrantTypes("client_credentials")
-        .scopes("read", "write").autoApprove(true)
-        .accessTokenValiditySeconds(900);
-  }
-
-  @Override
+	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		
 		endpoints.authenticationManager(authenticationManager);
 	}
 
-  @Override
-  public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 
-      security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
-  }
+		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+	}
+
+	
+	@Bean
+	public BCryptPasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

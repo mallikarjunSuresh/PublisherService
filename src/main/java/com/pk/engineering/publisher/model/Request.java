@@ -1,4 +1,4 @@
-package com.pk.engineering.Publisher.model;
+package com.pk.engineering.publisher.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -56,7 +56,7 @@ public class Request   {
     
     CLOSE("Close"),
     
-    SUSPENDED("Suspended"),
+    SUSPENDED("Suspended"),	
     
     RESTORED("Restored");
 

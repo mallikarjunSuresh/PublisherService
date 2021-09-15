@@ -1,4 +1,4 @@
-package com.pk.engineering.Publisher;
+package com.pk.engineering.publisher;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

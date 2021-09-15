@@ -1,6 +1,6 @@
-package com.pk.engineering.Publisher.service;
+package com.pk.engineering.publisher.service;
 
-import com.pk.engineering.Publisher.model.Request;
+import com.pk.engineering.publisher.model.Request;
 
 public interface MaskingService {
 

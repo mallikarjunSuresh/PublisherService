@@ -1,4 +1,4 @@
-package com.pk.engineering.Publisher.exception;
+package com.pk.engineering.publisher.exception;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,7 +14,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pk.engineering.Publisher.model.FailureResponse;
+import com.pk.engineering.publisher.model.FailureResponse;
 
 @Component
 public class AuthorizationHandler implements AuthenticationEntryPoint {

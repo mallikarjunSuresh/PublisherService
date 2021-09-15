@@ -1,4 +1,4 @@
-package com.pk.engineering.Publisher.exception;
+package com.pk.engineering.publisher.exception;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,17 +15,19 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.pk.engineering.Publisher.model.FailureResponse;
+import com.pk.engineering.publisher.model.FailureResponse;
 
 @ControllerAdvice
 public class CustomerContollerAdvice extends ResponseEntityExceptionHandler {
 
+	private static String failed = "failed";
+	
     @Override
 	public ResponseEntity<Object> handleServletRequestBindingException(
 			ServletRequestBindingException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         FailureResponse failureResponse = new FailureResponse();
-        failureResponse.setStatus("failed");
+        failureResponse.setStatus(failed);
         failureResponse.setMessage(ex.getMessage());
         failureResponse.setErrorType("Invalid Header Exception");
         return new ResponseEntity<>(failureResponse, HttpStatus.BAD_REQUEST);
@@ -35,7 +38,7 @@ public class CustomerContollerAdvice extends ResponseEntityExceptionHandler {
 			NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         FailureResponse failureResponse = new FailureResponse();
-        failureResponse.setStatus("failed");
+        failureResponse.setStatus(failed);
         failureResponse.setMessage(ex.getMessage());
         failureResponse.setErrorType("Invalid Handler Exception");
         return new ResponseEntity<>(failureResponse, HttpStatus.NOT_FOUND);
@@ -49,12 +52,12 @@ public class CustomerContollerAdvice extends ResponseEntityExceptionHandler {
                                  HttpStatus status, WebRequest request) {
 
     	FailureResponse failureResponse = new FailureResponse();
-        failureResponse.setStatus("failed");
+        failureResponse.setStatus(failed);
 
         List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(x -> x.getDefaultMessage())
+                .map(FieldError::getDefaultMessage)
                 .collect(Collectors.toList());
         
         failureResponse.setMessage(errors.toString());
@@ -68,7 +71,7 @@ public class CustomerContollerAdvice extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNullPointerException(Exception ex)
     {
         FailureResponse failureResponse = new FailureResponse();
-        failureResponse.setStatus("failed");
+        failureResponse.setStatus(failed);
         failureResponse.setMessage(ex.getMessage());
         failureResponse.setErrorType("General Exception");
         return new ResponseEntity<>(failureResponse, HttpStatus.INTERNAL_SERVER_ERROR);
