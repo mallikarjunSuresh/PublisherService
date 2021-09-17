@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaPublisherService implements MQPublisherService {
 
-    @Autowired
-    private KafkaTemplate<String,Object> kafkaTemplate;
-    
-	@Override
-	public void publishMessage(String topic, String message) {
-        kafkaTemplate.send(topic,message);
-		kafkaTemplate.flush();
-	}
+  @Autowired
+  private KafkaTemplate<String, Object> kafkaTemplate;
+
+  @Override
+  public void publishMessage(String topic, String message) {
+    kafkaTemplate.send(topic, message);
+    kafkaTemplate.flush();
+  }
 
 }

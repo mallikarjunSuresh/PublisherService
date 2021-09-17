@@ -4,8 +4,8 @@ import com.pk.engineering.publisher.model.Request;
 
 public interface MaskingService {
 
-	public static String MASK_CHAR = "*";
-	
-	Request doMasking(Request customerDetails);
+  public static String MASK_CHAR = "*";
+
+  Request doMasking(Request customerDetails);
 
 }

@@ -20,10 +20,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * Request
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-08-30T16:48:56.008Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen",
+    date = "2021-08-30T16:48:56.008Z[GMT]")
 
 
-public class Request   {
+public class Request {
   @JsonProperty("customerNumber")
   private String customerNumber = null;
 
@@ -53,11 +54,11 @@ public class Request   {
    */
   public enum CustomerStatusEnum {
     OPEN("Open"),
-    
+
     CLOSE("Close"),
-    
-    SUSPENDED("Suspended"),	
-    
+
+    SUSPENDED("Suspended"),
+
     RESTORED("Restored");
 
     private String value;
@@ -82,6 +83,7 @@ public class Request   {
       return null;
     }
   }
+
   @JsonProperty("customerStatus")
   private CustomerStatusEnum customerStatus = null;
 
@@ -95,12 +97,15 @@ public class Request   {
 
   /**
    * Get customerNumber
+   * 
    * @return customerNumber
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-  @Pattern(regexp="^C[0-9]+$") @Size(min=10,max=10)   public String getCustomerNumber() {
+  @Pattern(regexp = "^C[0-9]+$")
+  @Size(min = 10, max = 10)
+  public String getCustomerNumber() {
     return customerNumber;
   }
 
@@ -115,11 +120,13 @@ public class Request   {
 
   /**
    * Get fistName
+   * 
    * @return fistName
    **/
   @Schema(description = "")
-  
-  @Size(min=10,max=50)   public String getFistName() {
+
+  @Size(min = 10, max = 50)
+  public String getFistName() {
     return fistName;
   }
 
@@ -134,12 +141,14 @@ public class Request   {
 
   /**
    * Get lastName
+   * 
    * @return lastName
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-  @Size(min=10,max=50)   public String getLastName() {
+  @Size(min = 10, max = 50)
+  public String getLastName() {
     return lastName;
   }
 
@@ -154,13 +163,14 @@ public class Request   {
 
   /**
    * Get birthDate
+   * 
    * @return birthDate
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    @Valid
-    public LocalDate getBirthDate() {
+  @Valid
+  public LocalDate getBirthDate() {
     return birthDate;
   }
 
@@ -175,12 +185,13 @@ public class Request   {
 
   /**
    * Get country
+   * 
    * @return country
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public String getCountry() {
+  public String getCountry() {
     return country;
   }
 
@@ -195,12 +206,13 @@ public class Request   {
 
   /**
    * Get countryCode
+   * 
    * @return countryCode
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public Integer getCountryCode() {
+  public Integer getCountryCode() {
     return countryCode;
   }
 
@@ -215,12 +227,13 @@ public class Request   {
 
   /**
    * Get mobileNumber
+   * 
    * @return mobileNumber
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public Long getMobileNumber() {
+  public Long getMobileNumber() {
     return mobileNumber;
   }
 
@@ -235,12 +248,13 @@ public class Request   {
 
   /**
    * Get email
+   * 
    * @return email
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public String getEmail() {
+  public String getEmail() {
     return email;
   }
 
@@ -255,12 +269,13 @@ public class Request   {
 
   /**
    * Get customerStatus
+   * 
    * @return customerStatus
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public CustomerStatusEnum getCustomerStatus() {
+  public CustomerStatusEnum getCustomerStatus() {
     return customerStatus;
   }
 
@@ -275,12 +290,13 @@ public class Request   {
 
   /**
    * Get address
+   * 
    * @return address
    **/
   @Schema(description = "")
-  
-    @Valid
-    public CustomerAddress getAddress() {
+
+  @Valid
+  public CustomerAddress getAddress() {
     return address;
   }
 
@@ -298,28 +314,29 @@ public class Request   {
       return false;
     }
     Request request = (Request) o;
-    return Objects.equals(this.customerNumber, request.customerNumber) &&
-        Objects.equals(this.fistName, request.fistName) &&
-        Objects.equals(this.lastName, request.lastName) &&
-        Objects.equals(this.birthDate, request.birthDate) &&
-        Objects.equals(this.country, request.country) &&
-        Objects.equals(this.countryCode, request.countryCode) &&
-        Objects.equals(this.mobileNumber, request.mobileNumber) &&
-        Objects.equals(this.email, request.email) &&
-        Objects.equals(this.customerStatus, request.customerStatus) &&
-        Objects.equals(this.address, request.address);
+    return Objects.equals(this.customerNumber, request.customerNumber)
+        && Objects.equals(this.fistName, request.fistName)
+        && Objects.equals(this.lastName, request.lastName)
+        && Objects.equals(this.birthDate, request.birthDate)
+        && Objects.equals(this.country, request.country)
+        && Objects.equals(this.countryCode, request.countryCode)
+        && Objects.equals(this.mobileNumber, request.mobileNumber)
+        && Objects.equals(this.email, request.email)
+        && Objects.equals(this.customerStatus, request.customerStatus)
+        && Objects.equals(this.address, request.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(customerNumber, fistName, lastName, birthDate, country, countryCode, mobileNumber, email, customerStatus, address);
+    return Objects.hash(customerNumber, fistName, lastName, birthDate, country, countryCode,
+        mobileNumber, email, customerStatus, address);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Request {\n");
-    
+
     sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
     sb.append("    fistName: ").append(toIndentedString(fistName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
@@ -335,8 +352,7 @@ public class Request   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {

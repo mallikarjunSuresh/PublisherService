@@ -7,33 +7,33 @@ import com.pk.engineering.publisher.model.Request;
 @Service
 public class CustomerMaskingService implements MaskingService {
 
-	@Override
-	public Request doMasking(Request customerDetails) {
-		
-		String customerNumber = customerDetails.getCustomerNumber();
-		String customerEmail = customerDetails.getEmail();
+  @Override
+  public Request doMasking(Request customerDetails) {
 
-		int start = 0;
-		int end = 0;
-		
-		start = 6;
-		end = 10;
-		String customerNumberMasked = valueToMaskConverter(start, end, customerNumber);
+    String customerNumber = customerDetails.getCustomerNumber();
+    String customerEmail = customerDetails.getEmail();
 
-		start = 0;
-		end = customerEmail.length() >= 4 ? 4 : customerEmail.length() ;
-		String customerEmailMasked = valueToMaskConverter(start, end, customerEmail);
-				
-		customerDetails.setCustomerNumber(customerNumberMasked);
-		customerDetails.setEmail(customerEmailMasked);	
-		
-		return customerDetails;
-	}
+    int start = 0;
+    int end = 0;
 
-	private String valueToMaskConverter(int start, int end, String value) {
-		StringBuffer strBuff = new StringBuffer(value);		
-		return strBuff.replace(start, end,  MASK_CHAR.repeat(end-start)).toString(); 
-		
+    start = 6;
+    end = 10;
+    String customerNumberMasked = valueToMaskConverter(start, end, customerNumber);
 
-	}
+    start = 0;
+    end = customerEmail.length() >= 4 ? 4 : customerEmail.length();
+    String customerEmailMasked = valueToMaskConverter(start, end, customerEmail);
+
+    customerDetails.setCustomerNumber(customerNumberMasked);
+    customerDetails.setEmail(customerEmailMasked);
+
+    return customerDetails;
+  }
+
+  private String valueToMaskConverter(int start, int end, String value) {
+    StringBuffer strBuff = new StringBuffer(value);
+    return strBuff.replace(start, end, MASK_CHAR.repeat(end - start)).toString();
+
+
+  }
 }

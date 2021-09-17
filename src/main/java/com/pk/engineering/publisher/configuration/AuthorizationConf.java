@@ -14,32 +14,32 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationConf extends AuthorizationServerConfigurerAdapter {
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient("clientId").secret(encoder().encode("123456"))
-				.authorizedGrantTypes("client_credentials").scopes("read", "write").autoApprove(true)
-				.accessTokenValiditySeconds(900);
-	}
+  @Autowired
+  private AuthenticationManager authenticationManager;
 
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		
-		endpoints.authenticationManager(authenticationManager);
-	}
+  @Override
+  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    clients.inMemory().withClient("clientId").secret(encoder().encode("123456"))
+        .authorizedGrantTypes("client_credentials").scopes("read", "write").autoApprove(true)
+        .accessTokenValiditySeconds(900);
+  }
 
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+  @Override
+  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
-		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
-	}
+    endpoints.authenticationManager(authenticationManager);
+  }
 
-	
-	@Bean
-	public BCryptPasswordEncoder encoder() {
-		return new BCryptPasswordEncoder();
-	}
+  @Override
+  public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+
+    security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+  }
+
+
+  @Bean
+  public BCryptPasswordEncoder encoder() {
+    return new BCryptPasswordEncoder();
+  }
 }

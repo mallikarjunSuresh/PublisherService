@@ -19,17 +19,19 @@ import com.pk.engineering.publisher.model.FailureResponse;
 @Component
 public class AuthorizationHandler implements AuthenticationEntryPoint {
 
-    @Override
-    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        
-        FailureResponse failureResponse = new FailureResponse();
-        failureResponse.setStatus("failed");
-        failureResponse.setMessage(e.getMessage());
-        failureResponse.setErrorType("Unauthorised token Exception");
-        
-        OutputStream out = httpServletResponse.getOutputStream();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(out,new ResponseEntity<>(failureResponse, HttpStatus.UNAUTHORIZED));        
-        out.flush();
-    }
+  @Override
+  public void commence(HttpServletRequest httpServletRequest,
+      HttpServletResponse httpServletResponse, AuthenticationException e)
+      throws IOException, ServletException {
+
+    FailureResponse failureResponse = new FailureResponse();
+    failureResponse.setStatus("failed");
+    failureResponse.setMessage(e.getMessage());
+    failureResponse.setErrorType("Unauthorised token Exception");
+
+    OutputStream out = httpServletResponse.getOutputStream();
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.writeValue(out, new ResponseEntity<>(failureResponse, HttpStatus.UNAUTHORIZED));
+    out.flush();
+  }
 }

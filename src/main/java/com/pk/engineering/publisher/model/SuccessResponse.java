@@ -10,10 +10,11 @@ import javax.validation.constraints.*;
  * SuccessResponse
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-08-30T16:48:56.008Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen",
+    date = "2021-08-30T16:48:56.008Z[GMT]")
 
 
-public class SuccessResponse   {
+public class SuccessResponse {
   @JsonProperty("status")
   private String status = null;
 
@@ -27,12 +28,13 @@ public class SuccessResponse   {
 
   /**
    * Get status
+   * 
    * @return status
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public String getStatus() {
+  public String getStatus() {
     return status;
   }
 
@@ -47,12 +49,13 @@ public class SuccessResponse   {
 
   /**
    * Get message
+   * 
    * @return message
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public String getMessage() {
+  public String getMessage() {
     return message;
   }
 
@@ -70,8 +73,8 @@ public class SuccessResponse   {
       return false;
     }
     SuccessResponse successResponse = (SuccessResponse) o;
-    return Objects.equals(this.status, successResponse.status) &&
-        Objects.equals(this.message, successResponse.message);
+    return Objects.equals(this.status, successResponse.status)
+        && Objects.equals(this.message, successResponse.message);
   }
 
   @Override
@@ -83,7 +86,7 @@ public class SuccessResponse   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SuccessResponse {\n");
-    
+
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
@@ -91,8 +94,7 @@ public class SuccessResponse   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {

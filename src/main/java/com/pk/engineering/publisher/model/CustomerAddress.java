@@ -16,10 +16,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * CustomerAddress
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-08-30T16:48:56.008Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen",
+    date = "2021-08-30T16:48:56.008Z[GMT]")
 
 
-public class CustomerAddress   {
+public class CustomerAddress {
   @JsonProperty("addressLine1")
   private String addressLine1 = null;
 
@@ -39,12 +40,14 @@ public class CustomerAddress   {
 
   /**
    * Get addressLine1
+   * 
    * @return addressLine1
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-  @Size(max=50)   public String getAddressLine1() {
+  @Size(max = 50)
+  public String getAddressLine1() {
     return addressLine1;
   }
 
@@ -59,11 +62,12 @@ public class CustomerAddress   {
 
   /**
    * Get addressLine2
+   * 
    * @return addressLine2
    **/
   @Schema(description = "")
-  
-    public String getAddressLine2() {
+
+  public String getAddressLine2() {
     return addressLine2;
   }
 
@@ -78,11 +82,12 @@ public class CustomerAddress   {
 
   /**
    * Get street
+   * 
    * @return street
    **/
   @Schema(description = "")
-  
-    public String getStreet() {
+
+  public String getStreet() {
     return street;
   }
 
@@ -97,12 +102,14 @@ public class CustomerAddress   {
 
   /**
    * Get postalCode
+   * 
    * @return postalCode
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-  @Size(max=5)   public String getPostalCode() {
+  @Size(max = 5)
+  public String getPostalCode() {
     return postalCode;
   }
 
@@ -120,10 +127,10 @@ public class CustomerAddress   {
       return false;
     }
     CustomerAddress customerAddress = (CustomerAddress) o;
-    return Objects.equals(this.addressLine1, customerAddress.addressLine1) &&
-        Objects.equals(this.addressLine2, customerAddress.addressLine2) &&
-        Objects.equals(this.street, customerAddress.street) &&
-        Objects.equals(this.postalCode, customerAddress.postalCode);
+    return Objects.equals(this.addressLine1, customerAddress.addressLine1)
+        && Objects.equals(this.addressLine2, customerAddress.addressLine2)
+        && Objects.equals(this.street, customerAddress.street)
+        && Objects.equals(this.postalCode, customerAddress.postalCode);
   }
 
   @Override
@@ -135,7 +142,7 @@ public class CustomerAddress   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CustomerAddress {\n");
-    
+
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    street: ").append(toIndentedString(street)).append("\n");
@@ -145,8 +152,7 @@ public class CustomerAddress   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {

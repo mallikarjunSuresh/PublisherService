@@ -13,19 +13,19 @@ import com.pk.engineering.publisher.service.KafkaPublisherService;
 @SpringBootTest
 class PublisherServiceTest {
 
-    @Mock
-    private KafkaTemplate<String, Object> kafkaTemplate;
+  @Mock
+  private KafkaTemplate<String, Object> kafkaTemplate;
 
-    @InjectMocks
-    private KafkaPublisherService publisherService;
-    
-	@Test
-	void testPublishMessageWhenTopicAndMessageIsPassedShouldSendMessageToKafka() {
+  @InjectMocks
+  private KafkaPublisherService publisherService;
 
-	    // When
-	    publisherService.publishMessage("customer","payload");
-	    
-	    // Then
-	    verify(kafkaTemplate).send("customer","payload");
-	}
+  @Test
+  void testPublishMessageWhenTopicAndMessageIsPassedShouldSendMessageToKafka() {
+
+    // When
+    publisherService.publishMessage("customer", "payload");
+
+    // Then
+    verify(kafkaTemplate).send("customer", "payload");
+  }
 }

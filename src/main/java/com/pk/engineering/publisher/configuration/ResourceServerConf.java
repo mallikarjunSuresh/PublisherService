@@ -13,21 +13,22 @@ import com.pk.engineering.publisher.exception.AuthorizationHandler;
 @EnableResourceServer
 public class ResourceServerConf extends WebSecurityConfigurerAdapter {
 
-	@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/**").permitAll().and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().antMatchers("/**").permitAll().and().exceptionHandling()
+        .authenticationEntryPoint(authenticationEntryPoint());
+  }
 
-	@Bean
-	AuthorizationHandler authenticationEntryPoint() {
-		return new AuthorizationHandler();
-	}
+  @Bean
+  AuthorizationHandler authenticationEntryPoint() {
+    return new AuthorizationHandler();
+  }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 }
 
 

@@ -10,10 +10,11 @@ import javax.validation.constraints.*;
  * FailureResponse
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-08-30T16:48:56.008Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen",
+    date = "2021-08-30T16:48:56.008Z[GMT]")
 
 
-public class FailureResponse   {
+public class FailureResponse {
   @JsonProperty("status")
   private String status = null;
 
@@ -30,12 +31,13 @@ public class FailureResponse   {
 
   /**
    * Get status
+   * 
    * @return status
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public String getStatus() {
+  public String getStatus() {
     return status;
   }
 
@@ -50,12 +52,13 @@ public class FailureResponse   {
 
   /**
    * Get message
+   * 
    * @return message
    **/
   @Schema(required = true, description = "")
-      @NotNull
+  @NotNull
 
-    public String getMessage() {
+  public String getMessage() {
     return message;
   }
 
@@ -70,11 +73,12 @@ public class FailureResponse   {
 
   /**
    * Get errorType
+   * 
    * @return errorType
    **/
   @Schema(description = "")
-  
-    public String getErrorType() {
+
+  public String getErrorType() {
     return errorType;
   }
 
@@ -92,9 +96,9 @@ public class FailureResponse   {
       return false;
     }
     FailureResponse failureResponse = (FailureResponse) o;
-    return Objects.equals(this.status, failureResponse.status) &&
-        Objects.equals(this.message, failureResponse.message) &&
-        Objects.equals(this.errorType, failureResponse.errorType);
+    return Objects.equals(this.status, failureResponse.status)
+        && Objects.equals(this.message, failureResponse.message)
+        && Objects.equals(this.errorType, failureResponse.errorType);
   }
 
   @Override
@@ -106,7 +110,7 @@ public class FailureResponse   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class FailureResponse {\n");
-    
+
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    errorType: ").append(toIndentedString(errorType)).append("\n");
@@ -115,8 +119,7 @@ public class FailureResponse   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
