@@ -4,16 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import com.pk.engineering.publisher.model.CustomerPayload;
-import com.pk.engineering.publisher.model.KafkaQueuePayload;
+import com.pk.engineering.publisher.model.GenericKafkaEvent;
+import com.pk.engineering.publisher.model.GenericKafkaEvent.Level;
 import com.pk.engineering.publisher.model.Request;
-import com.pk.engineering.publisher.model.KafkaQueuePayload.Level;
-import com.pk.engineering.publisher.service.KafkaSuccessPayloadServiceImpl;
-import com.pk.engineering.publisher.util.ObjectMapperUtil;
+import com.pk.engineering.publisher.service.KafkaPayloadServiceImpl;
 
 
-class KafkaSuccessPayloadServiceTest {
+class KafkaPayloadServiceTest {
 
-  private KafkaSuccessPayloadServiceImpl payloadService = new KafkaSuccessPayloadServiceImpl();
+  private KafkaPayloadServiceImpl<CustomerPayload> payloadService = new KafkaPayloadServiceImpl<>();
 
   @Test
   void testgeneratePayLoadWhenCalledWithValidArgumentShouldReturnJsonStringOfCustomerQueuePayLoadModel() {
@@ -25,13 +24,14 @@ class KafkaSuccessPayloadServiceTest {
     CustomerPayload payload = new CustomerPayload(ActivityId, TransactionalId, customerResponse);
 
     // When
-    String actual = payloadService.generatePayload(payload);
+    GenericKafkaEvent<CustomerPayload> actual = payloadService.generateSucessPayload(payload);
 
     // Then
-    KafkaQueuePayload queuePayload = new KafkaQueuePayload();
+    GenericKafkaEvent<CustomerPayload> queuePayload = new GenericKafkaEvent<>();
     queuePayload.setLevel(Level.INFO);
-    String expected = ObjectMapperUtil.writeValueAsString(queuePayload);
+    queuePayload.setCustomerPayload(payload);
 
+    GenericKafkaEvent<CustomerPayload> expected = queuePayload;
     assertEquals(expected, actual);
 
 

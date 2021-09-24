@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.WebRequest;
 import com.pk.engineering.publisher.model.CustomerPayload;
+import com.pk.engineering.publisher.model.GenericKafkaEvent;
 import com.pk.engineering.publisher.model.Request;
 import com.pk.engineering.publisher.model.SuccessResponse;
-import com.pk.engineering.publisher.service.MQPublisherService;
 import com.pk.engineering.publisher.service.MaskingService;
-import com.pk.engineering.publisher.service.SuccessPayloadService;
+import com.pk.engineering.publisher.service.MqPayloadService;
+import com.pk.engineering.publisher.service.MqPublisherService;
 import com.pk.engineering.publisher.util.ObjectMapperUtil;
 
 
@@ -33,15 +34,15 @@ public class CustomerController {
 
   private MaskingService maskingService;
 
-  private SuccessPayloadService payloadService;
+  private MqPayloadService<CustomerPayload> payloadService;
 
-  private MQPublisherService mqPublisherService;
+  private MqPublisherService mqPublisherService;
 
   private WebRequest webRequest;
 
   @Autowired
-  public CustomerController(MaskingService maskingService, SuccessPayloadService payloadService,
-      MQPublisherService mqPublisherService, WebRequest webRequest) {
+  public CustomerController(MaskingService maskingService, MqPayloadService<CustomerPayload> payloadService,
+      MqPublisherService mqPublisherService, WebRequest webRequest) {
     this.maskingService = maskingService;
     this.payloadService = payloadService;
     this.mqPublisherService = mqPublisherService;
@@ -61,7 +62,7 @@ public class CustomerController {
     log.info("Incoming request {0}.", customerRequest);
 
     CustomerPayload payload = new CustomerPayload(activityId, transactionId, request);
-    String payLoadJson = payloadService.generatePayload(payload);
+    GenericKafkaEvent<CustomerPayload> payLoadJson = payloadService.generateSucessPayload(payload);
     mqPublisherService.publishMessage(CUSTOMER_TOPIC, payLoadJson);
 
     SuccessResponse response = new SuccessResponse();

@@ -2,7 +2,7 @@ package com.pk.engineering.publisher.model;
 
 import java.util.Objects;
 
-public class KafkaQueuePayload {
+public class GenericKafkaEvent<T> {
 
   public enum Level {
 
@@ -26,7 +26,7 @@ public class KafkaQueuePayload {
 
   private String errorDesc;
 
-  private CustomerPayload customerPayload;
+  private T customerPayload;
 
   public Level getLevel() {
     return level;
@@ -52,11 +52,11 @@ public class KafkaQueuePayload {
     this.errorDesc = errorDesc;
   }
 
-  public CustomerPayload getCustomerPayload() {
+  public T getCustomerPayload() {
     return customerPayload;
   }
 
-  public void setCustomerPayload(CustomerPayload customerPayload) {
+  public void setCustomerPayload(T customerPayload) {
     this.customerPayload = customerPayload;
   }
 
@@ -73,7 +73,7 @@ public class KafkaQueuePayload {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    KafkaQueuePayload other = (KafkaQueuePayload) obj;
+    GenericKafkaEvent other = (GenericKafkaEvent) obj;
     return Objects.equals(customerPayload, other.customerPayload)
         && Objects.equals(errorDesc, other.errorDesc) && Objects.equals(errorType, other.errorType)
         && level == other.level;

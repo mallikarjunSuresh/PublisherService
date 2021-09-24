@@ -1,18 +1,17 @@
 package com.pk.engineering.publisher;
 
 import java.time.LocalDate;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
-
 import com.pk.engineering.publisher.model.CustomerAddress;
 import com.pk.engineering.publisher.model.Request;
 import com.pk.engineering.publisher.model.Request.CustomerStatusEnum;
-
 import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -51,12 +50,16 @@ class CustomerITest {
 
     Request customerRequest = createDefCustomerReq();
     customerRequest.setCustomerNumber("C00000000");
+    
+    Map<Object,Object> input = new HashMap<>();
+    input.put("customerNumber", 1);
+    
 
     RestAssured.given().header("Authorization", "Bearer " + oauth_token)
         .header("Transaction-Id", "1979c1ce-0fc1-11ec-82a8-0242ac130003")
         .header("Activity-Id", "1ff79f94-0fc1-11ec-82a8-0242ac130003")
         .header("Content-Type", "application/json").header("Accept", "application/json").with()
-        .body(customerRequest).when().request("POST", "v1/customer").then().assertThat()
+        .body(input).when().request("POST", "v1/customer").then().assertThat()
         .statusCode(400).body("status", Matchers.equalTo("failed"))
         .body("errorType", Matchers.equalTo("Invalid Request Exception"));
 

@@ -21,9 +21,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.pk.engineering.publisher.controller.CustomerController;
 import com.pk.engineering.publisher.model.CustomerPayload;
 import com.pk.engineering.publisher.model.FailureResponse;
+import com.pk.engineering.publisher.model.GenericKafkaEvent;
 import com.pk.engineering.publisher.model.Request;
-import com.pk.engineering.publisher.service.FailurePayloadService;
-import com.pk.engineering.publisher.service.MQPublisherService;
+import com.pk.engineering.publisher.service.KafkaPayloadServiceImpl;
+import com.pk.engineering.publisher.service.MqPublisherService;
 import com.pk.engineering.publisher.util.ObjectMapperUtil;
 
 @ControllerAdvice
@@ -34,10 +35,10 @@ public class CustomerControllerAdvice extends ResponseEntityExceptionHandler {
   private static String failed = "failed";
 
   @Autowired
-  private FailurePayloadService payloadService;
+  private KafkaPayloadServiceImpl<CustomerPayload> payloadService;
 
   @Autowired
-  private MQPublisherService mqPublisherService;
+  private MqPublisherService mqPublisherService;
 
   @Override
   public ResponseEntity<Object> handleServletRequestBindingException(
@@ -105,8 +106,9 @@ public class CustomerControllerAdvice extends ResponseEntityExceptionHandler {
   private void publishToMQ(WebRequest request,
       FailureResponse failureResponse) {
 
-    String failurePayload =
-        payloadService.generatePayload(failureResponse, getCustomerPayload(request));
+    GenericKafkaEvent<CustomerPayload> failurePayload =
+        payloadService.generateFailurePayload(failureResponse, getCustomerPayload(request));
+    
     mqPublisherService.publishMessage(CustomerController.CUSTOMER_TOPIC,
         ObjectMapperUtil.writeValueAsString(failurePayload));
   }

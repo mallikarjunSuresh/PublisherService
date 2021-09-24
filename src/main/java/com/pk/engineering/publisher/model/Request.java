@@ -53,13 +53,13 @@ public class Request {
    * Gets or Sets customerStatus
    */
   public enum CustomerStatusEnum {
-    OPEN("Open"),
+    OPEN("O"),
 
-    CLOSE("Close"),
+    CLOSE("C"),
 
-    SUSPENDED("Suspended"),
+    SUSPENDED("S"),
 
-    RESTORED("Restored");
+    RESTORED("R");
 
     private String value;
 
