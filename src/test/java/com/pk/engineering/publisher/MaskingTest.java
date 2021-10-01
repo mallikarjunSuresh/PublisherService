@@ -1,10 +1,8 @@
 package com.pk.engineering.publisher;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
-
-import com.pk.engineering.publisher.model.Request;
+import com.pk.engineering.publisher.model.CustomerRequest;
 import com.pk.engineering.publisher.service.CustomerMaskingService;
 import com.pk.engineering.publisher.service.MaskingService;
 
@@ -17,12 +15,12 @@ class MaskingTest {
   void testdoMaskingWhencustomerObjectPassedWithEmailLengthGreaterThanFourShoudlMaskValuesProperly() {
 
     // Given
-    Request customerInputReq = new Request();
+    CustomerRequest customerInputReq = new CustomerRequest();
     customerInputReq.setCustomerNumber("C000000005");
     customerInputReq.setEmail("arjun123s@gmail.com");
 
     // When
-    Request customerDetailOut = maskService.doMasking(customerInputReq);
+    CustomerRequest customerDetailOut = maskService.doMasking(customerInputReq);
 
     // Then
     assertEquals("C00000****", customerDetailOut.getCustomerNumber());
@@ -34,12 +32,12 @@ class MaskingTest {
   void testdoMaskingWhencustomerObjectPassedWithEmailLengthLessThanFourShoudlMaskValuesProperly() {
 
     // Given
-    Request customerInputReq = new Request();
+    CustomerRequest customerInputReq = new CustomerRequest();
     customerInputReq.setCustomerNumber("C000000005");
     customerInputReq.setEmail("mai");
 
     // When
-    Request customerDetailOut = maskService.doMasking(customerInputReq);
+    CustomerRequest customerDetailOut = maskService.doMasking(customerInputReq);
 
     // Then
     assertEquals("C00000****", customerDetailOut.getCustomerNumber());

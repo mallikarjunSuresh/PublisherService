@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import com.pk.engineering.publisher.model.CustomerPayload;
+import com.pk.engineering.publisher.model.CustomerRequest;
 import com.pk.engineering.publisher.model.GenericKafkaEvent;
-import com.pk.engineering.publisher.model.GenericKafkaEvent.Level;
-import com.pk.engineering.publisher.model.Request;
 import com.pk.engineering.publisher.service.KafkaPayloadServiceImpl;
 
 
@@ -18,9 +17,9 @@ class KafkaPayloadServiceTest {
   void testgeneratePayLoadWhenCalledWithValidArgumentShouldReturnJsonStringOfCustomerQueuePayLoadModel() {
 
     // Given
-    UUID ActivityId = UUID.randomUUID();
-    UUID TransactionalId = UUID.randomUUID();
-    Request customerResponse = new Request();
+    String ActivityId = UUID.randomUUID().toString();
+    String TransactionalId = UUID.randomUUID().toString();
+    CustomerRequest customerResponse = new CustomerRequest();
     CustomerPayload payload = new CustomerPayload(ActivityId, TransactionalId, customerResponse);
 
     // When
@@ -28,7 +27,6 @@ class KafkaPayloadServiceTest {
 
     // Then
     GenericKafkaEvent<CustomerPayload> queuePayload = new GenericKafkaEvent<>();
-    queuePayload.setLevel(Level.INFO);
     queuePayload.setCustomerPayload(payload);
 
     GenericKafkaEvent<CustomerPayload> expected = queuePayload;

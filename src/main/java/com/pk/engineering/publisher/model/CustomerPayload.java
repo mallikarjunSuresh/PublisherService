@@ -1,17 +1,16 @@
 package com.pk.engineering.publisher.model;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class CustomerPayload {
 
-  private UUID activityId;
+  private String activityId;
 
-  private UUID transactionId;
+  private String transactionId;
 
-  private Request customerRequest;
+  private CustomerRequest customerRequest;
 
-  public CustomerPayload(UUID activityId, UUID transactionId, Request customerRequest) {
+  public CustomerPayload(String activityId, String transactionId, CustomerRequest customerRequest) {
     this.activityId = activityId;
     this.transactionId = transactionId;
     this.customerRequest = customerRequest;
@@ -21,32 +20,32 @@ public class CustomerPayload {
   public CustomerPayload() {}
 
 
-  public UUID getActivityId() {
+  public String getActivityId() {
     return activityId;
   }
 
 
-  public void setActivityId(UUID activityId) {
+  public void setActivityId(String activityId) {
     this.activityId = activityId;
   }
 
 
-  public UUID getTransactionId() {
+  public String getTransactionId() {
     return transactionId;
   }
 
 
-  public void setTransactionId(UUID transactionId) {
+  public void setTransactionId(String transactionId) {
     this.transactionId = transactionId;
   }
 
 
-  public Request getCustomerRequest() {
+  public CustomerRequest getCustomerRequest() {
     return customerRequest;
   }
 
 
-  public void setCustomerRequest(Request customerRequest) {
+  public void setCustomerRequest(CustomerRequest customerRequest) {
     this.customerRequest = customerRequest;
   }
 

@@ -1,6 +1,5 @@
 package com.pk.engineering.publisher.controller;
 
-import java.util.UUID;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,15 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.WebRequest;
 import com.pk.engineering.publisher.model.CustomerPayload;
+import com.pk.engineering.publisher.model.CustomerRequest;
 import com.pk.engineering.publisher.model.GenericKafkaEvent;
-import com.pk.engineering.publisher.model.Request;
 import com.pk.engineering.publisher.model.SuccessResponse;
+import com.pk.engineering.publisher.service.KafkaPayloadService;
+import com.pk.engineering.publisher.service.KafkaPublisherService;
 import com.pk.engineering.publisher.service.MaskingService;
-import com.pk.engineering.publisher.service.MqPayloadService;
-import com.pk.engineering.publisher.service.MqPublisherService;
+import com.pk.engineering.publisher.util.CreateSuccessResponse;
 import com.pk.engineering.publisher.util.ObjectMapperUtil;
 
 
@@ -34,40 +32,33 @@ public class CustomerController {
 
   private MaskingService maskingService;
 
-  private MqPayloadService<CustomerPayload> payloadService;
+  private KafkaPayloadService<CustomerPayload> payloadService;
 
-  private MqPublisherService mqPublisherService;
-
-  private WebRequest webRequest;
+  private KafkaPublisherService kafkaPublisherService;
 
   @Autowired
-  public CustomerController(MaskingService maskingService, MqPayloadService<CustomerPayload> payloadService,
-      MqPublisherService mqPublisherService, WebRequest webRequest) {
+  public CustomerController(MaskingService maskingService, KafkaPayloadService<CustomerPayload> payloadService,
+      KafkaPublisherService mqPublisherService, KafkaPublisherService kafkaPublisherService) {
     this.maskingService = maskingService;
     this.payloadService = payloadService;
-    this.mqPublisherService = mqPublisherService;
-    this.webRequest = webRequest;
+    this.kafkaPublisherService = kafkaPublisherService;
   }
 
   @PostMapping(value = "/customer", produces = {"application/json"},
       consumes = {"application/json"})
   public ResponseEntity<SuccessResponse> addCustomer(
-      @RequestHeader(value = "Transaction-Id", required = true) UUID transactionId,
-      @RequestHeader(value = "Activity-Id", required = true) UUID activityId,
-      @Valid @RequestBody Request request) {
-
-    webRequest.setAttribute("customerRequest", request, RequestAttributes.SCOPE_REQUEST);
+      @RequestHeader(value = "Transaction-Id", required = true) String transactionId,
+      @RequestHeader(value = "Activity-Id", required = true) String activityId, @RequestHeader(value = "Authorization", required = true) String authorization,
+      @Valid @RequestBody CustomerRequest request) {
 
     String customerRequest = ObjectMapperUtil.writeValueAsString(maskingService.doMasking(request));
     log.info("Incoming request {0}.", customerRequest);
 
     CustomerPayload payload = new CustomerPayload(activityId, transactionId, request);
     GenericKafkaEvent<CustomerPayload> payLoadJson = payloadService.generateSucessPayload(payload);
-    mqPublisherService.publishMessage(CUSTOMER_TOPIC, payLoadJson);
+    kafkaPublisherService.publishMessage(CUSTOMER_TOPIC, payLoadJson);
 
-    SuccessResponse response = new SuccessResponse();
-    response.setMessage(customerRequest);
-    response.setStatus("success");
+    SuccessResponse response = CreateSuccessResponse.getSucessResponse(customerRequest);
     String customerResponse = ObjectMapperUtil.writeValueAsString(response);
     log.info("Outgoing request {0}.", customerResponse);
 

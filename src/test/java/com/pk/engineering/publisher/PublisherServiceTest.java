@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFuture;
-import com.pk.engineering.publisher.service.KafkaPublisherService;
+import com.pk.engineering.publisher.service.KafkaPublisherServiceImpl;
 
 @SpringBootTest
 class PublisherServiceTest {
@@ -19,7 +19,7 @@ class PublisherServiceTest {
   private KafkaTemplate<String, Object> kafkaTemplate;
 
   @InjectMocks
-  private KafkaPublisherService publisherService;
+  private KafkaPublisherServiceImpl publisherService;
 
   @Test
   void testPublishMessageWhenTopicAndMessageIsPassedShouldSendMessageToKafka() {

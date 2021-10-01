@@ -2,9 +2,6 @@ package com.pk.engineering.publisher;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +12,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFuture;
 import com.pk.engineering.publisher.model.CustomerAddress;
-import com.pk.engineering.publisher.model.Request;
-import com.pk.engineering.publisher.model.Request.CustomerStatusEnum;
+import com.pk.engineering.publisher.model.CustomerRequest;
+import com.pk.engineering.publisher.model.CustomerRequest.CustomerStatusEnum;
 import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -39,7 +36,7 @@ class CustomerITest {
   @Test
   void testCustomerPostMethodWhenCalledWithValidRequestShouldReturnSucessResponse() {
     
-    Request customerRequest = createDefCustomerReq();
+    CustomerRequest customerRequest = createDefCustomerReq();
 
     ListenableFuture<SendResult<String, Object>> responseFuture = mock(ListenableFuture.class);
     when(kafkaTemplate.send(Mockito.any(), Mockito.any())).thenReturn(responseFuture);
@@ -56,7 +53,7 @@ class CustomerITest {
   @Test
   void testCustomerPostMethodWhenCalledWithInvalidRequestShouldReturnInvalidRequestFailureResponse() {
 
-    Request customerRequest = createDefCustomerReq();
+    CustomerRequest customerRequest = createDefCustomerReq();
     customerRequest.setCustomerNumber("C00000000");
     
     ListenableFuture<SendResult<String, Object>> responseFuture = mock(ListenableFuture.class);
@@ -76,7 +73,7 @@ class CustomerITest {
   @Test
   void testCustomerPostMethodWhenCalledWithInvalidHeaderShouldReturnInvalidHeaderFailureResponse() {
 
-    Request customerRequest = createDefCustomerReq();
+    CustomerRequest customerRequest = createDefCustomerReq();
     
     ListenableFuture<SendResult<String, Object>> responseFuture = mock(ListenableFuture.class);
     when(kafkaTemplate.send(Mockito.any(), Mockito.any())).thenReturn(responseFuture);
@@ -93,7 +90,7 @@ class CustomerITest {
   @Test
   void testCustomerPostMethodWhenCalledWithInvalidPathShouldReturnInvalidHandlerFailureResponse() {
 
-    Request customerRequest = createDefCustomerReq();
+    CustomerRequest customerRequest = createDefCustomerReq();
     
     ListenableFuture<SendResult<String, Object>> responseFuture = mock(ListenableFuture.class);
     when(kafkaTemplate.send(Mockito.any(), Mockito.any())).thenReturn(responseFuture);
@@ -108,15 +105,15 @@ class CustomerITest {
 
   }
 
-  private Request createDefCustomerReq() {
+  private CustomerRequest createDefCustomerReq() {
 
-    Request customerRequest = new Request();
+    CustomerRequest customerRequest = new CustomerRequest();
     CustomerAddress address = new CustomerAddress();
     address.setAddressLine1("Guindy");
     address.setPostalCode("12345");
     customerRequest.setCustomerNumber("C000000001");
     customerRequest.setAddress(address);
-    customerRequest.setBirthDate(LocalDate.of(1996, 8, 14));
+    customerRequest.setBirthDate("2015-05-16T05:50:06");
     customerRequest.setCountry("India");
     customerRequest.setCountryCode(21);
     customerRequest.setCustomerStatus(CustomerStatusEnum.OPEN);

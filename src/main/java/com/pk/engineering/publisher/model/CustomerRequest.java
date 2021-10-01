@@ -1,19 +1,14 @@
 package com.pk.engineering.publisher.model;
 
-import java.time.LocalDate;
 import java.util.Objects;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -24,7 +19,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
     date = "2021-08-30T16:48:56.008Z[GMT]")
 
 
-public class Request {
+public class CustomerRequest {
   @JsonProperty("customerNumber")
   private String customerNumber = null;
 
@@ -35,7 +30,7 @@ public class Request {
   private String lastName = null;
 
   @JsonProperty("birthDate")
-  private LocalDate birthDate = null;
+  private String birthDate = null;
 
   @JsonProperty("country")
   private String country = null;
@@ -90,7 +85,7 @@ public class Request {
   @JsonProperty("address")
   private CustomerAddress address = null;
 
-  public Request customerNumber(String customerNumber) {
+  public CustomerRequest customerNumber(String customerNumber) {
     this.customerNumber = customerNumber;
     return this;
   }
@@ -113,7 +108,7 @@ public class Request {
     this.customerNumber = customerNumber;
   }
 
-  public Request fistName(String fistName) {
+  public CustomerRequest fistName(String fistName) {
     this.fistName = fistName;
     return this;
   }
@@ -134,7 +129,7 @@ public class Request {
     this.fistName = fistName;
   }
 
-  public Request lastName(String lastName) {
+  public CustomerRequest lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -156,7 +151,7 @@ public class Request {
     this.lastName = lastName;
   }
 
-  public Request birthDate(LocalDate birthDate) {
+  public CustomerRequest birthDate(String birthDate) {
     this.birthDate = birthDate;
     return this;
   }
@@ -170,15 +165,15 @@ public class Request {
   @NotNull
 
   @Valid
-  public LocalDate getBirthDate() {
+  public String getBirthDate() {
     return birthDate;
   }
 
-  public void setBirthDate(LocalDate birthDate) {
+  public void setBirthDate(String birthDate) {
     this.birthDate = birthDate;
   }
 
-  public Request country(String country) {
+  public CustomerRequest country(String country) {
     this.country = country;
     return this;
   }
@@ -199,7 +194,7 @@ public class Request {
     this.country = country;
   }
 
-  public Request countryCode(Integer countryCode) {
+  public CustomerRequest countryCode(Integer countryCode) {
     this.countryCode = countryCode;
     return this;
   }
@@ -220,7 +215,7 @@ public class Request {
     this.countryCode = countryCode;
   }
 
-  public Request mobileNumber(Long mobileNumber) {
+  public CustomerRequest mobileNumber(Long mobileNumber) {
     this.mobileNumber = mobileNumber;
     return this;
   }
@@ -241,7 +236,7 @@ public class Request {
     this.mobileNumber = mobileNumber;
   }
 
-  public Request email(String email) {
+  public CustomerRequest email(String email) {
     this.email = email;
     return this;
   }
@@ -262,7 +257,7 @@ public class Request {
     this.email = email;
   }
 
-  public Request customerStatus(CustomerStatusEnum customerStatus) {
+  public CustomerRequest customerStatus(CustomerStatusEnum customerStatus) {
     this.customerStatus = customerStatus;
     return this;
   }
@@ -283,7 +278,7 @@ public class Request {
     this.customerStatus = customerStatus;
   }
 
-  public Request address(CustomerAddress address) {
+  public CustomerRequest address(CustomerAddress address) {
     this.address = address;
     return this;
   }
@@ -313,7 +308,7 @@ public class Request {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Request request = (Request) o;
+    CustomerRequest request = (CustomerRequest) o;
     return Objects.equals(this.customerNumber, request.customerNumber)
         && Objects.equals(this.fistName, request.fistName)
         && Objects.equals(this.lastName, request.lastName)
